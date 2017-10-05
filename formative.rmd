@@ -1,0 +1,81 @@
+---
+title: "formative_test"
+author: "ting"
+date: "October 5, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+5. DI stands for De-identified. That means personal information is removed usually for privacy protection.
+```{r}
+D1= read.csv("~/Downloads/dataverse_files/HMXPC13_DI_v2_5-14-14.csv", head=TRUE)
+
+n_CS50x_2012 = nrow(subset(D1, certified == 1 & course_id=="HarvardX/CS50x/2012"))
+```
+
+6. n_CS50x_2012 = 1287
+
+```{r}
+
+n_CS50x_2012_otc.15_Colombia = nrow(subset(D1, registered == 1 & course_id=="HarvardX/CS50x/2012" & start_time_DI == "2012-10-15" & final_cc_cname_DI =="Colombia"))
+
+
+
+```
+7. 10 people registered for HarvardX/CS50x from Columbia on October 15, 2012.
+
+
+```{r}
+D2_AAA= subset (D1, final_cc_cname_DI == "United States")
+D2= subset (D2_AAA, select = c(userid_DI, start_time_DI, final_cc_cname_DI))
+
+```
+
+
+8. D2
+
+9. 
+```{R}
+library(tidyr)
+D3 = subset(D1, select = c(registered, userid_DI, start_time_DI))
+D3 = unique(D3)
+D3_BBB= spread(D3, start_time_DI, registered)
+
+```
+
+10. Now make the row names of D3 the student ids on your new data frame and remove the user id column from your data frame
+
+```{r}
+D4 = D3_BBB
+row.names(D4)=D3_BBB$userid_DI
+D4 = subset(D4, select = -c(userid_DI))
+#D3_BBB = subset(D3_BBB, select = -c(userid_DI))
+
+```
+
+11. 
+```{R}
+M1 = data.matrix(D3_BBB)
+```
+
+12.
+```{r}
+M2 = t(M1)
+```
+
+13. 
+```{r}
+#M3 = M1%*%M2
+```
+If two students register at the same date, M1 x M2 should give 1, therefore, we can calculate M3 = M1%*%M2.
+However, my laptop cannot handle the computation. So I do not run it.
+
+14. 
+
+```{r}
+#diag(M3) =  NA
+```
+
