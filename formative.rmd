@@ -78,6 +78,7 @@ However, my laptop cannot handle the computation. So I do not run it.
 ```{r}
 #diag(M3) =  NA
 ```
+<<<<<<< HEAD
  
  
 ## Download and install the package
